@@ -19,9 +19,11 @@ const push = () => {
 </script>
 
 <template>
+  <!-- 判断是否是外链(http/https/ftp)，如果是外链利用a标签跳转 -->
   <a v-if="isExternal(to)" :href="to" target="_blank" rel="noopener">
     <slot />
   </a>
+  <!-- 非外链走vue路由 -->
   <div v-else @click="push">
     <slot />
   </div>
