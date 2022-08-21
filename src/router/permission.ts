@@ -1,6 +1,9 @@
 import router from "@/router"
+// 标准化的路由地址（接口）
 import { RouteLocationNormalized } from "vue-router"
+// 用户pinia仓库
 import { useUserStoreHook } from "@/store/modules/user"
+// 权限pinia仓库
 import { usePermissionStoreHook } from "@/store/modules/permission"
 import { ElMessage } from "element-plus"
 import { whiteList } from "@/config/white-list"
@@ -25,6 +28,7 @@ router.beforeEach(async (to: RouteLocationNormalized, _: RouteLocationNormalized
       // 检查用户是否已获得其权限角色
       if (userStore.roles.length === 0) {
         try {
+          // 是否开启动态路由
           if (asyncRouteSettings.open) {
             // 注意：角色必须是一个数组！ 例如: ['admin'] 或 ['developer', 'editor']
             await userStore.getInfo()

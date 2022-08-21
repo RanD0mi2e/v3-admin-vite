@@ -66,6 +66,7 @@ const resolvePath = (routePath: string) => {
 <template>
   <div v-if="!item.meta || !item.meta.hidden" :class="{ 'simple-mode': isCollapse, 'first-level': isFirstLevel }">
     <template v-if="!alwaysShowRootMenu && theOnlyOneChild && !theOnlyOneChild.children">
+      <!-- 仅有一个元素时 -->
       <SidebarItemLink v-if="theOnlyOneChild.meta" :to="resolvePath(theOnlyOneChild.path)">
         <el-menu-item :index="resolvePath(theOnlyOneChild.path)">
           <svg-icon v-if="theOnlyOneChild.meta.icon" :name="theOnlyOneChild.meta.icon" />
@@ -75,12 +76,14 @@ const resolvePath = (routePath: string) => {
         </el-menu-item>
       </SidebarItemLink>
     </template>
+    <!-- 一个路由下有多个子路由 -->
     <el-sub-menu v-else :index="resolvePath(item.path)" popper-append-to-body>
       <template #title>
         <svg-icon v-if="item.meta && item.meta.icon" :name="item.meta.icon" />
         <span v-if="item.meta && item.meta.title">{{ item.meta.title }}</span>
       </template>
       <template v-if="item.children">
+        <!-- 递归组件 -->
         <sidebar-item
           v-for="child in item.children"
           :key="child.path"

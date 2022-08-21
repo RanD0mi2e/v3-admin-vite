@@ -4,6 +4,7 @@ import { useRoute, useRouter, RouteLocationMatched } from "vue-router"
 import { compile } from "path-to-regexp"
 
 const route = useRoute()
+
 const router = useRouter()
 
 const pathCompile = (path: string) => {
@@ -19,9 +20,11 @@ const state = reactive({
     state.breadcrumbs = matched.filter((item) => {
       return item.meta && item.meta.title && item.meta.breadcrumb !== false
     })
+    console.log(state.breadcrumbs)
   },
   handleLink(item: any) {
     const { redirect, path } = item
+    console.log("path", path)
     if (redirect) {
       router.push(redirect).catch((err) => {
         console.warn(err)
