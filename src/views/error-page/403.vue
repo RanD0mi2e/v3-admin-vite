@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p class="code">404</p>
-    <p class="describe">未找到你想要的页面</p>
+    <p class="code">403</p>
+    <p class="describe">你没有权限去该页面</p>
   </div>
 </template>
 

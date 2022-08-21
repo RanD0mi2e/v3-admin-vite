@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router"
+import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from "vue-router"
 const Layout = () => import("@/layout/index.vue")
 
 /** 常驻路由 */
@@ -48,7 +48,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       {
         path: "index",
         component: () => import("@/views/unocss/index.vue"),
-        name: "Unocss",
+        name: "UnoCSS",
         meta: {
           title: "unocss",
           icon: "unocss"
@@ -182,11 +182,11 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     },
     children: [
       {
-        path: "401",
-        component: () => import("@/views/error-page/401.vue"),
-        name: "401",
+        path: "403",
+        component: () => import("@/views/error-page/403.vue"),
+        name: "403",
         meta: {
-          title: "401"
+          title: "403"
         }
       },
       {
@@ -202,7 +202,10 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history:
+    import.meta.env.VITE_ROUTER_HISTORY === "hash"
+      ? createWebHashHistory(import.meta.env.VITE_PUBLIC_PATH)
+      : createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
   routes: constantRoutes
 })
 
